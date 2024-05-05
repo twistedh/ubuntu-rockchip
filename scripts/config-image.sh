@@ -19,14 +19,6 @@ fi
 # shellcheck source=/dev/null
 source "../config/boards/${BOARD}.conf"
 
-if [[ -z ${KERNEL_TARGET} ]]; then
-    echo "Error: KERNEL_TARGET is not set"
-    exit 1
-fi
-
-# shellcheck source=/dev/null
-source "../config/kernels/${KERNEL_TARGET}.conf"
-
 if [[ -z ${RELEASE} ]]; then
     echo "Error: RELEASE is not set"
     exit 1
