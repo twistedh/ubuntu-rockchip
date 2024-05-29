@@ -7,7 +7,7 @@ run-name: Build Ubuntu 22.04 LTS and 24.04 LTS
 
 jobs:
   rootfs:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     name: Build rootfs 
     strategy:
         matrix:
@@ -58,7 +58,7 @@ jobs:
             if-no-files-found: error
 
   kernel:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     name: Build kernel 
     strategy:
         matrix:
@@ -106,7 +106,7 @@ jobs:
             if-no-files-found: error
 
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     needs: [rootfs, kernel]
     name: Build image 
 
@@ -162,13 +162,13 @@ jobs:
         run: git lfs fetch && git lfs checkout
 
       - name: Checkout rootfs
-        uses: actions/download-artifact@v4.1.2
+        uses: actions/download-artifact@v4
         with:
             name: ubuntu-${{ matrix.suite == 'jammy' && '22.04' || matrix.suite == 'noble' && '24.04' }}-preinstalled-${{ matrix.flavor }}-arm64-rootfs
             path: ./build/
 
       - name: Checkout kernel
-        uses: actions/download-artifact@v4.1.2
+        uses: actions/download-artifact@v4
         with:
             name: linux-rockchip-${{ matrix.suite == 'jammy' && '5.10' || matrix.suite == 'noble' && '6.1' }}
             path: ./build/
