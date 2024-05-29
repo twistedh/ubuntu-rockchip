@@ -6,7 +6,7 @@ on:
 
 jobs:
   rootfs:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     name: Build rootfs 
     strategy:
         matrix:
@@ -57,7 +57,7 @@ jobs:
             if-no-files-found: error
 
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     needs: [rootfs]
     name: Build image 
 
@@ -114,7 +114,7 @@ jobs:
         run: git lfs fetch && git lfs checkout
 
       - name: Checkout rootfs
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v4.1.2
         with:
             name: ubuntu-${{ matrix.suite == 'jammy' && '22.04' || matrix.suite == 'noble' && '24.04' }}-preinstalled-${{ matrix.flavor }}-arm64-rootfs
             path: ./build/
