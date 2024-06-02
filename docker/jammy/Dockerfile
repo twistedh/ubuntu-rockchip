@@ -4,6 +4,9 @@ FROM ubuntu:22.04
 # Prevent dpkg interactive dialogues
 ENV DEBIAN_FRONTEND=noninteractive
 
+COPY multiarch.sh /
+RUN /multiarch.sh
+
 # Install required packages
 RUN apt-get update && apt-get install -y \
     bc \
